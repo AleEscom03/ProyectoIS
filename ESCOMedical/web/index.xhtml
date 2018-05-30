@@ -1,0 +1,127 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Inicio -  ESCOMedical</title>        
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"></link>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato"></link>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></link>
+
+        <link rel="stylesheet" type="text/css" href="css/css_index.css"></link>
+    </h:head>
+    <h:body class="w3-light-grey w3-content" style="max-width:1600px">
+        <!-- Navbar (sit on top) -->
+        <div class="w3-top">
+            <div class="w3-bar w3-black" id="myNavbar">
+                <a class="w3-bar-item w3-button w3-hover-black w3-hide-medium w3-hide-large ">
+                    <i class="fa fa-bars"></i>
+                </a>
+                <a href="#Inicio" class="w3-bar-item w3-button"><i class="fa fa-building" style="font-size:24px"></i> Inicio </a>        
+                <a onclick="document.getElementById('LogIn').style.display = 'block'" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-user" style="font-size:24px"></i>Iniciar Sesión</a>
+                <a onclick="document.getElementById('SignIn').style.display = 'block'" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-child" style="font-size:24px"></i>Registrarse</a>
+
+                <a href="#Información" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-envelope" style="font-size:24px"></i>Información</a>
+            </div>
+        </div>
+
+        <!-- Inicio -->
+        <div class="bgimg-1 w3-display-container w3-opacity-min" id="Inicio">
+            <div class="w3-display-middle" style="white-space:nowrap;">
+                <!-- AQUI VA EL LOGO -->
+                <span class="w3-center w3-padding-large w3-gray w3-xlarge w3-wide w3-animate-opacity">ESCOMedical</span>        
+            </div>
+        </div>
+
+
+        <!--Sign up-->
+        <div id="SignIn" class="w3-modal w3-animate-opacity">
+            <div class="w3-modal-content w3-card-4 w3-animate-zoom w3-light-grey" style="max-width:600px">
+                <div class="w3-center"><br/>
+                    <span onclick="document.getElementById('SignIn').style.display = 'none'" class="w3-button w3-xlarge w3-hover-red w3-display-topright" title="Close Modal">&times;</span>
+                    <img src="Pictures/avatar1.png" alt="Avatar" style="width:30%" class="w3-circle w3-card-4 w3-margin-top"/>
+                </div>
+                <h:form class="w3-container">
+                    <div class="w3-section">
+                        <label for="nombre"><b> Nombre(s): </b></label>
+                        <p:inputText placeholder="Ingrese Nombre" value="#{signIn_Bean.name}" id="nombre" class="w3-input"/>
+                        <label for="apellidop"><b> Apellido Paterno </b></label>
+                        <p:inputText placeholder="Ingrese apellido paterno" value="#{signIn_Bean.lastName}" id="apellidop" class="w3-input"/>
+                        <label for="apellidom"><b> Apellido Materno </b></label>
+                        <p:inputText placeholder="Ingrese apellido materno" value="#{signIn_Bean.id}" id="apellidom"  class="w3-input"/>
+                        <label for="edad"><b> Edad </b></label>
+                        <p:inputNumber placeholder="Ingrese edad" value="#{loginBean.edad}" id="edad" class="w3-input" />
+                        <label for="curp"><b> CURP </b></label>
+                        <p:inputText placeholder="Ingrese CURP" value="#{signIn_Bean.email}" id="curp" class="w3-input"/>
+                        <label for="telefono"><b> Teléfono </b></label>
+                        <p:inputText placeholder="Ingrese # de teléfono" value="#{loginBean.telefono}" id="telefono" class="w3-input" />
+                        <label for="correo"><b> Correo electrónico </b></label>
+                        <p:inputText placeholder="Ingrese e-mail" value="#{loginBean.correo}" id="correo" class="w3-input"/>
+                        <label for="psw"><b> Password </b></label>
+                        <p:password placeholder="Enter Password" value="#{signIn_Bean.password}" id="psw" class="w3-input"/>
+                        <label for="psw-repeat"><b> Repeat Password </b></label>
+                        <p:password placeholder="Repeat Password" value="#{signIn_Bean.RPassword}" id="psw-repeat" class="w3-input"/>
+                        <label for="type_user"><b> Enfermedad que padece: </b></label>
+                        <p:selectOneMenu class="w3-input" value="#{signIn_Bean.cargo}">
+                            <f:selectItem itemLabel="Gripe" itemValue="Gripe" />
+                            <f:selectItem itemLabel="Cancer" itemValue="Cancer" />
+                            <f:selectItem itemLabel="Diabetes" itemValue="Diabetes" />
+                            <f:selectItem itemLabel="Asma" itemValue="ASsma" />
+                            <f:selectItem itemLabel="Obesidad" itemValue="Obesida" />
+                            <f:selectItem itemLabel="SIDA" itemValue="SIDA" />
+                        </p:selectOneMenu>
+                        <hr/>
+                        <div class="clearfix w3-container w3-border-top w3-padding-16 w3-white">
+                            <p:commandButton type="submit" action="#{signIn_Bean.validate()}" class="w3-button w3-block w3-green w3-section w3-padding" value="Registrar"/>              
+                            <label>
+                                <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"/> Remember me
+                            </label>
+                        </div>
+                    </div>
+                </h:form>
+            </div>
+        </div>
+
+        <!--Log in-->
+        <div id="LogIn" class="w3-modal w3-animate-opacity">
+            <div class="w3-modal-content w3-card-4 w3-animate-zoom w3-light-grey" style="max-width:600px">
+                <div class="w3-center"><br/>
+                    <span onclick="document.getElementById('LogIn').style.display = 'none'" class="w3-button w3-xlarge w3-hover-red w3-display-topright" title="Close Modal">&times;</span>
+                    <img src="Pictures/avatar1.png" alt="Avatar" style="width:30%" class="w3-circle w3-card-4 w3-margin-top"/>
+                </div>
+                <h:form class="w3-container">
+                    <div class="w3-section">
+                        <label for="curpl"><b>CURP</b></label>
+                        <p:inputText placeholder="Ingrese su CURP" value="#{logInBean.curp}" id="curpl" class="w3-input w3-border w3-margin-bottom"/>
+                        <label for="psw"><b>Contraseña </b></label>
+                        <p:password placeholder="Ingrese Contraseña" value="#{logIn_Bean.psw}" id="psw" class="w3-input w3-border w3-margin-bottom"/>
+                        <label for="tipo"><b> Enfermedad que padece: </b></label>
+                        <p:selectOneMenu class="w3-input" value="#{signIn_Bean.cargo}">
+                            <f:selectItem itemLabel="Administrador" itemValue="administrador" />
+                            <f:selectItem itemLabel="Médico" itemValue="Paciente" />
+                            <hr/>
+                        </p:selectOneMenu>
+                            <div class="clearfix w3-container w3-border-top w3-padding-16 w3-white">
+                                <p:commandButton type="submit" action="#{logIn_Bean.validate()}" class="w3-button w3-block w3-green w3-section w3-padding" value="Iniciar Sesión"/>              
+                                <label>
+                                    <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"/> Remember me
+                                </label>
+                            </div>
+                    </div>
+                </h:form>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="w3-center w3-black w3-padding-64 " id="Contacto">
+            <div class="w3-xlarge w3-section">
+
+            </div>
+        </footer>
+    </h:body>
+</html>
+
