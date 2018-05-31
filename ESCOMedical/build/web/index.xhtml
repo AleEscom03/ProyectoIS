@@ -55,13 +55,13 @@
                         <label for="apellidom"><b> Apellido Materno </b></label>
                         <p:inputText placeholder="Ingrese apellido materno" value="#{signIn_Bean.id}" id="apellidom"  class="w3-input"/>
                         <label for="edad"><b> Edad </b></label>
-                        <p:inputNumber placeholder="Ingrese edad" value="#{loginBean.edad}" id="edad" class="w3-input" />
+                        <p:inputNumber placeholder="Ingrese edad" value="#{loginBean.psw}" id="edad" class="w3-input" />
                         <label for="curp"><b> CURP </b></label>
                         <p:inputText placeholder="Ingrese CURP" value="#{signIn_Bean.email}" id="curp" class="w3-input"/>
                         <label for="telefono"><b> Teléfono </b></label>
-                        <p:inputText placeholder="Ingrese # de teléfono" value="#{loginBean.telefono}" id="telefono" class="w3-input" />
+                        <p:inputText placeholder="Ingrese # de teléfono" value="#{loginBean.psw}" id="telefono" class="w3-input" />
                         <label for="correo"><b> Correo electrónico </b></label>
-                        <p:inputText placeholder="Ingrese e-mail" value="#{loginBean.correo}" id="correo" class="w3-input"/>
+                        <p:inputText placeholder="Ingrese e-mail" value="#{loginBean.curp}" id="correo" class="w3-input"/>
                         <label for="psw"><b> Password </b></label>
                         <p:password placeholder="Enter Password" value="#{signIn_Bean.password}" id="psw" class="w3-input"/>
                         <label for="psw-repeat"><b> Repeat Password </b></label>
@@ -91,23 +91,24 @@
         <div id="LogIn" class="w3-modal w3-animate-opacity">
             <div class="w3-modal-content w3-card-4 w3-animate-zoom w3-light-grey" style="max-width:600px">
                 <div class="w3-center"><br/>
+                    <h3 class="w3-center">Iniciar Sesión</h3>
                     <span onclick="document.getElementById('LogIn').style.display = 'none'" class="w3-button w3-xlarge w3-hover-red w3-display-topright" title="Close Modal">&times;</span>
                     <img src="Pictures/hosp.png" alt="Avatar" style="width:30%" class="w3-circle w3-card-4 w3-margin-top"/>
                 </div>
                 <h:form class="w3-container">
                     <div class="w3-section">
                         <label for="curpl"><b>CURP</b></label>
-                        <p:inputText placeholder="Ingrese su CURP" value="#{logInBean.curp}" id="curpl" class="w3-input w3-border w3-margin-bottom"/>
+                        <p:inputText placeholder="Ingrese su CURP" value="#{loginBean.curp}" id="curp" class="w3-input w3-border w3-margin-bottom"/>
                         <label for="psw"><b>Contraseña </b></label>
-                        <p:password placeholder="Ingrese Contraseña" value="#{logIn_Bean.psw}" id="psw" class="w3-input w3-border w3-margin-bottom"/>
-                        <label for="tipo"><b> Enfermedad que padece: </b></label>
-                        <p:selectOneMenu class="w3-input" value="#{signIn_Bean.cargo}">
-                            <f:selectItem itemLabel="Administrador" itemValue="administrador" />
+                        <p:password placeholder="Ingrese Contraseña" value="#{loginBean.psw}" id="psw" class="w3-input w3-border w3-margin-bottom"/>
+                        <label for="tipo"><b> Tipo de usuario: </b></label>
+                        <p:selectOneMenu class="w3-input" value="#{loginBean.tipo}">
+                            <f:selectItem itemLabel="Administrador" itemValue="Administrador" />
                             <f:selectItem itemLabel="Médico" itemValue="Paciente" />
                             <hr/>
                         </p:selectOneMenu>
                         <div class="clearfix w3-container w3-border-top w3-padding-16 w3-white">
-                            <p:commandButton type="submit" action="#{logIn_Bean.validate()}" class="w3-button w3-block w3-green w3-section w3-padding" value="Iniciar Sesión"/>              
+                            <p:commandButton type="submit" action="#{loginBean.validate()}" class="w3-button w3-block w3-blue w3-section w3-padding" value="Iniciar Sesión"/>              
                             <label>
                                 <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"/> Remember me
                             </label>

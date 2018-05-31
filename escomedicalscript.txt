@@ -78,3 +78,7 @@ CREATE TABLE `generar_historial` (
 	CONSTRAINT `fk_medico_historial` FOREIGN KEY (`CURPM`) REFERENCES `medico` (`CURPM`),
 	CONSTRAINT `fk_historial` FOREIGN KEY (`CURPP_historial`) REFERENCES `historial` (`CURPP_historial`)
 );
+
+
+insert into administrador values('BUEA970807HDFNSL02','Alejandro','Buendia','Escamilla',20,'alebuenescom03@gmail.com','5524936024','ale970807','31-05-18');
+

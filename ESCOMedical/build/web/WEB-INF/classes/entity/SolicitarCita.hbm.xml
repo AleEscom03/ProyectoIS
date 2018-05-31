@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 31/05/2018 09:05:05 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="entity.SolicitarCita" table="solicitar_cita" catalog="escomedical" optimistic-lock="version">
+        <composite-id name="id" class="entity.SolicitarCitaId">
+            <key-property name="curpp" type="string">
+                <column name="CURPP" length="18" />
+            </key-property>
+            <key-property name="curpm" type="string">
+                <column name="CURPM" length="18" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="medico" class="entity.Medico" update="false" insert="false" fetch="select">
+            <column name="CURPM" length="18" not-null="true" />
+        </many-to-one>
+        <many-to-one name="paciente" class="entity.Paciente" update="false" insert="false" fetch="select">
+            <column name="CURPP" length="18" not-null="true" />
+        </many-to-one>
+        <property name="fechaCita" type="timestamp">
+            <column name="fecha_cita" length="19" not-null="true" />
+        </property>
+        <property name="consultorio" type="int">
+            <column name="consultorio" not-null="true" />
+        </property>
+        <property name="indicaciones" type="string">
+            <column name="indicaciones" length="500" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

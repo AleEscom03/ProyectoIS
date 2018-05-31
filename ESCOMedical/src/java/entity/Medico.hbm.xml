@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 31/05/2018 09:05:05 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="entity.Medico" table="medico" catalog="escomedical" optimistic-lock="version">
+        <id name="curpm" type="string">
+            <column name="CURPM" length="18" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="administrador" class="entity.Administrador" fetch="select">
+            <column name="CURPA" length="18" not-null="true" />
+        </many-to-one>
+        <property name="nombre" type="string">
+            <column name="nombre" length="45" not-null="true" />
+        </property>
+        <property name="appat" type="string">
+            <column name="appat" length="45" not-null="true" />
+        </property>
+        <property name="apmat" type="string">
+            <column name="apmat" length="45" not-null="true" />
+        </property>
+        <property name="edad" type="int">
+            <column name="edad" not-null="true" />
+        </property>
+        <property name="correo" type="string">
+            <column name="correo" length="90" not-null="true" />
+        </property>
+        <property name="telefono" type="string">
+            <column name="telefono" length="10" not-null="true" />
+        </property>
+        <property name="contrasena" type="string">
+            <column name="contrasena" length="20" not-null="true" />
+        </property>
+        <property name="especialidad" type="string">
+            <column name="especialidad" length="50" not-null="true" />
+        </property>
+        <property name="consultorio" type="int">
+            <column name="consultorio" not-null="true" />
+        </property>
+        <property name="fechaAsignar" type="timestamp">
+            <column name="fecha_asignar" length="19" not-null="true" />
+        </property>
+        <set name="solicitarCitas" table="solicitar_cita" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="CURPM" length="18" not-null="true" />
+            </key>
+            <one-to-many class="entity.SolicitarCita" />
+        </set>
+        <set name="generarHistorials" table="generar_historial" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="CURPM" length="18" not-null="true" />
+            </key>
+            <one-to-many class="entity.GenerarHistorial" />
+        </set>
+    </class>
+</hibernate-mapping>

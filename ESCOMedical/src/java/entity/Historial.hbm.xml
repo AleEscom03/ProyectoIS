@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 31/05/2018 09:05:05 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="entity.Historial" table="historial" catalog="escomedical" optimistic-lock="version">
+        <id name="curppHistorial" type="string">
+            <column name="CURPP_historial" length="18" />
+            <generator class="foreign">
+                <param name="property">paciente</param>
+            </generator>
+        </id>
+        <one-to-one name="paciente" class="entity.Paciente" constrained="true"></one-to-one>
+        <property name="fecha" type="timestamp">
+            <column name="fecha" length="19" not-null="true" />
+        </property>
+        <property name="contenido" type="string">
+            <column name="contenido" length="1000" not-null="true" />
+        </property>
+        <set name="generarHistorials" table="generar_historial" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="CURPP_historial" length="18" not-null="true" />
+            </key>
+            <one-to-many class="entity.GenerarHistorial" />
+        </set>
+    </class>
+</hibernate-mapping>
