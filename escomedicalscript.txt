@@ -12,7 +12,7 @@ CREATE TABLE `paciente` (
 	`telefono` varchar(10) NOT NULL,
 	`contrasena` varchar(20) NOT NULL,
 	`enfermedad` varchar(50) NOT NULL,
-	`cita` datetime NOT NULL,
+	`cita` datetime,
 	PRIMARY KEY (`CURPP`)
 );
 
