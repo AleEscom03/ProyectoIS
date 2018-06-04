@@ -42,42 +42,35 @@
         <div id="SignIn" class="w3-modal w3-animate-opacity">
             <div class="w3-modal-content w3-card-4 w3-animate-zoom w3-light-grey" style="max-width:600px">
                 <div class="w3-center"><br/>
-                    <h3 class="w3-center">Registrarse</h3>
+                    <h3 class="w3-center">Registrarse (Solo Pacientes)*</h3>
                     <span onclick="document.getElementById('SignIn').style.display = 'none'" class="w3-button w3-xlarge w3-hover-red w3-display-topright" title="Close Modal">&times;</span>
                     <img src="Pictures/pills.png" alt="Avatar" style="width:30%" class="w3-circle w3-card-4 w3-margin-top"/>
                 </div>
                 <h:form class="w3-container">
                     <div class="w3-section">
                         <label for="nombre"><b> Nombre(s): </b></label>
-                        <p:inputText placeholder="Ingrese Nombre" value="#{signIn_Bean.name}" id="nombre" class="w3-input"/>
+                        <p:inputText placeholder="Ingrese Nombre" value="#{signInBean.nombre}" id="nombre" class="w3-input"/>
                         <label for="apellidop"><b> Apellido Paterno </b></label>
-                        <p:inputText placeholder="Ingrese apellido paterno" value="#{signIn_Bean.lastName}" id="apellidop" class="w3-input"/>
+                        <p:inputText placeholder="Ingrese apellido paterno" value="#{signInBean.apellidop}" id="apellidop" class="w3-input"/>
                         <label for="apellidom"><b> Apellido Materno </b></label>
-                        <p:inputText placeholder="Ingrese apellido materno" value="#{signIn_Bean.id}" id="apellidom"  class="w3-input"/>
+                        <p:inputText placeholder="Ingrese apellido materno" value="#{signInBean.apellidom}" id="apellidom"  class="w3-input"/>
                         <label for="edad"><b> Edad </b></label>
-                        <p:inputNumber placeholder="Ingrese edad" value="#{loginBean.psw}" id="edad" class="w3-input" />
+                        <p:inputNumber minValue="0" maxValue="120" placeholder="Ingrese edad" value="#{signInBean.edad}" id="edad" class="w3-input" />
                         <label for="curp"><b> CURP </b></label>
-                        <p:inputText placeholder="Ingrese CURP" value="#{signIn_Bean.email}" id="curp" class="w3-input"/>
+                        <p:inputText placeholder="Ingrese CURP" value="#{signInBean.curp}" id="curp" class="w3-input"/>
                         <label for="telefono"><b> Teléfono </b></label>
-                        <p:inputText placeholder="Ingrese # de teléfono" value="#{loginBean.psw}" id="telefono" class="w3-input" />
+                        <p:inputText placeholder="Ingrese # de teléfono" value="#{signInBean.telefono}" id="telefono" class="w3-input" />
                         <label for="correo"><b> Correo electrónico </b></label>
-                        <p:inputText placeholder="Ingrese e-mail" value="#{loginBean.curp}" id="correo" class="w3-input"/>
+                        <p:inputText placeholder="Ingrese e-mail" value="#{signInBean.correo}" id="correo" class="w3-input"/>
                         <label for="psw"><b> Password </b></label>
-                        <p:password placeholder="Enter Password" value="#{signIn_Bean.password}" id="psw" class="w3-input"/>
+                        <p:password placeholder="Enter Password" value="#{signInBean.contra}" id="psw" class="w3-input"/>
                         <label for="psw-repeat"><b> Repeat Password </b></label>
-                        <p:password placeholder="Repeat Password" value="#{signIn_Bean.RPassword}" id="psw-repeat" class="w3-input"/>
+                        <p:password placeholder="Repeat Password" value="#{signInBean.rcontra}" id="psw-repeat" class="w3-input"/>
                         <label for="type_user"><b> Enfermedad que padece: </b></label>
-                        <p:selectOneMenu class="w3-input" value="#{signIn_Bean.cargo}">
-                            <f:selectItem itemLabel="Gripe" itemValue="Gripe" />
-                            <f:selectItem itemLabel="Cancer" itemValue="Cancer" />
-                            <f:selectItem itemLabel="Diabetes" itemValue="Diabetes" />
-                            <f:selectItem itemLabel="Asma" itemValue="ASsma" />
-                            <f:selectItem itemLabel="Obesidad" itemValue="Obesida" />
-                            <f:selectItem itemLabel="SIDA" itemValue="SIDA" />
-                        </p:selectOneMenu>
+                        <p:inputText placeholder="Ingrese Enfermedad que padece" value="#{signInBean.enfermedad}" id="enfermedad" class="w3-input"/>
                         <hr/>
                         <div class="clearfix w3-container w3-border-top w3-padding-16 w3-white">
-                            <p:commandButton type="submit" action="#{signIn_Bean.validate()}" class="w3-button w3-block w3-green w3-section w3-padding" value="Registrar"/>              
+                            <p:commandButton type="submit" action="#{signInBean.validate()}" class="w3-button w3-block w3-green w3-section w3-padding" value="Registrar"/>              
                             <label>
                                 <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"/> Remember me
                             </label>
@@ -104,7 +97,8 @@
                         <label for="tipo"><b> Tipo de usuario: </b></label>
                         <p:selectOneMenu class="w3-input" value="#{loginBean.tipo}">
                             <f:selectItem itemLabel="Administrador" itemValue="Administrador" />
-                            <f:selectItem itemLabel="Médico" itemValue="Paciente" />
+                            <f:selectItem itemLabel="Médico" itemValue="Medico" />
+                            <f:selectItem itemLabel="Paciente" itemValue="Paciente" />
                             <hr/>
                         </p:selectOneMenu>
                         <div class="clearfix w3-container w3-border-top w3-padding-16 w3-white">

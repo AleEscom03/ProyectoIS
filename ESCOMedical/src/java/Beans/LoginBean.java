@@ -52,10 +52,10 @@ public class LoginBean implements Serializable {
             } else {
                 if (tipo.equals("Medico")) {
                     tipoU = 2;
-                    me = (Medico) hibernateSession.createQuery("from Medico where curpp = '" + curp + "' and contrasena = '" + psw + "'").uniqueResult();
+                    me = (Medico) hibernateSession.createQuery("from Medico where curpm = '" + curp + "' and contrasena = '" + psw + "'").uniqueResult();
                 } else {
                     tipoU = 3;
-                    pa = (Paciente) hibernateSession.createQuery("from Paciente where curp = '" + curp + "' and contrasena = '" + psw + "'").uniqueResult();
+                    pa = (Paciente) hibernateSession.createQuery("from Paciente where curpp = '" + curp + "' and contrasena = '" + psw + "'").uniqueResult();
                 }
             }
             if (tipoU == 0) {
@@ -68,9 +68,9 @@ public class LoginBean implements Serializable {
                 case 1:
                     return "MainAdministrador";
                 case 2:
-                    return "MainPaciente";
-                case 3:
                     return "MainMedico";
+                case 3:
+                    return "MainPaciente";
                 default:
                     FacesMessage message2 = new FacesMessage(FacesMessage.SEVERITY_INFO, "Revisar", "Constraseña o Usuario incorrecto");
                     PrimeFaces.current().dialog().showMessageDynamic(message2);
