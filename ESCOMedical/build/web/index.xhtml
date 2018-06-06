@@ -11,8 +11,29 @@
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"></link>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato"></link>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></link>
-
         <link rel="stylesheet" type="text/css" href="css/css_index.css"></link>
+        <style>
+            #imagencargando{
+                width: 50%;
+                height: 50%;
+                margin-left: auto;
+                margin-right: auto;
+                display: none;
+
+            }
+            #textL{
+                margin-left: auto;
+                margin-right: auto;
+                display: none;
+            }
+        </style>
+        <script>
+            function mostrarImagen() {
+                document.querySelector("#imagencargando").style.display = "block";
+                document.querySelector("#textL").style.display = "block";
+                document.querySelector("#avat").style.display = "none";
+            }
+        </script>
     </h:head>
     <h:body class="w3-light-grey w3-content" style="max-width:1600px">
         <!-- Navbar (sit on top) -->
@@ -22,10 +43,10 @@
                     <i class="fa fa-bars"></i>
                 </a>
                 <a href="#Inicio" class="w3-bar-item w3-button"><i class="fa fa-building" style="font-size:24px"></i> Inicio </a>        
-                <a onclick="document.getElementById('LogIn').style.display = 'block'" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-user" style="font-size:24px"></i>Iniciar Sesión</a>
+                <a onclick="document.getElementById('LogIn').style.display = 'block'" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-user" style="font-size:24px"></i> Iniciar Sesión</a>
                 <a onclick="document.getElementById('SignIn').style.display = 'block'" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-child" style="font-size:24px"></i>Registrarse</a>
 
-                <a href="#Contacto" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-envelope" style="font-size:24px"></i>Información</a>
+                <a href="#Contacto" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-envelope" style="font-size:24px"></i> Información</a>
             </div>
         </div>
 
@@ -86,7 +107,9 @@
                 <div class="w3-center"><br/>
                     <h3 class="w3-center">Iniciar Sesión</h3>
                     <span onclick="document.getElementById('LogIn').style.display = 'none'" class="w3-button w3-xlarge w3-hover-red w3-display-topright" title="Close Modal">&times;</span>
-                    <img src="Pictures/hosp.png" alt="Avatar" style="width:30%" class="w3-circle w3-card-4 w3-margin-top"/>
+                    <img id="avat" src="Pictures/hosp.png" alt="Avatar" style="width:30%" class="w3-circle w3-card-4 w3-margin-top"/>
+                    <img alt="cargando" src="Pictures/carga.gif" id="imagencargando"/>
+                    <p id="textL" align="center">Cargando...</p>
                 </div>
                 <h:form class="w3-container">
                     <div class="w3-section">
@@ -99,10 +122,10 @@
                             <f:selectItem itemLabel="Administrador" itemValue="Administrador" />
                             <f:selectItem itemLabel="Médico" itemValue="Medico" />
                             <f:selectItem itemLabel="Paciente" itemValue="Paciente" />
-                            <hr/>
                         </p:selectOneMenu>
-                        <div class="clearfix w3-container w3-border-top w3-padding-16 w3-white">
-                            <p:commandButton type="submit" action="#{loginBean.validate()}" class="w3-button w3-block w3-blue w3-section w3-padding" value="Iniciar Sesión"/>              
+                        <hr/>
+                        <div class="clearfix w3-container w3-border-top w3-padding-16 w3-light-grey">
+                            <p:commandButton type="submit" action="#{loginBean.validate()}" class="w3-button w3-block w3-blue w3-section w3-padding" value="Iniciar Sesión" onclick="mostrarImagen()"/>              
                             <label>
                                 <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"/> Remember me
                             </label>
