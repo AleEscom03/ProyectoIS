@@ -52,21 +52,21 @@
                             <a onclick="document.getElementById('SignIn').style.display = 'block'">
                                 <button class="w3-btn w3-white w3-border w3-border-blue w3-text-blue w3-round-large">
                                     <i class="fa fa-plus-square" style="color:blue"></i>
-                                    Add new           
+                                    Añadir nuevo           
                                 </button>
                             </a>
-                            <button onclick="myFunction('ListTeacher')" class="w3-btn w3-white w3-border w3-border-blue w3-text-blue w3-round-large">
+                            <button onclick="myFunction('ListaMedicos')" class="w3-btn w3-white w3-border w3-border-blue w3-text-blue w3-round-large">
                                 <i class="fa fa-eye" style="color:blue"></i>
-                                Show all
+                                Mostrar Todo
                             </button>
-                            <button onclick="document.getElementById('ListTeacher').style.display = 'none'" class="w3-btn w3-white w3-border w3-border-blue w3-text-blue w3-round-large">
+                            <button onclick="document.getElementById('ListaMedicos').style.display = 'none'" class="w3-btn w3-white w3-border w3-border-blue w3-text-blue w3-round-large">
                                 <i class="fa fa-eye-slash" style="color:blue"></i>
-                                Hide all
+                                Ocultar Todo
                             </button>
                             <hr/>
-                            <h:form  id="ListTeacher" class="w3-container">
+                            <h:form id="ListaMedicos" class="w3-container">
                                 <p:dataTable  value="#{list_Teacher.lstpersona}" 
-                                              var="teacher">
+                                              var="medico">
                                     <p:column headerText= "First name">
                                         <h:inputText value="#{teacher.nombre}" size="15" rendered="#{teacher.editable}" />
                                         <p:outputLabel value="#{teacher.nombre}" rendered="#{not teacher.editable}"/>
