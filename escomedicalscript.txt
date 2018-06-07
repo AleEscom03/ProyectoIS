@@ -12,11 +12,7 @@ CREATE TABLE `paciente` (
 	`telefono` varchar(10) NOT NULL,
 	`contrasena` varchar(20) NOT NULL,
 	`enfermedad` varchar(50) NOT NULL,
-<<<<<<< HEAD
 	`cita` datetime NULL,
-=======
-	`cita` datetime,
->>>>>>> b120784d1c05f9ce06e36c1dc9d342e8d7df3fc4
 	PRIMARY KEY (`CURPP`)
 );
 
@@ -54,17 +50,17 @@ CREATE TABLE `medico` (
 CREATE TABLE `historial` (
 	`CURPP_historial` varchar(18) NOT NULL,
 	`fecha` datetime NOT NULL,
-	`contenido` varchar(1000) NOT NULL,
+	`contenido` varchar(5000) NOT NULL,
 	PRIMARY KEY (`CURPP_historial`),
-	CONSTRAINT `FKEMPL` FOREIGN KEY (`CURPP_historial`) REFERENCES `paciente` (`CURPP`)
+	CONSTRAINT `FKEMPL` FOREIGN KEY (`CURPP`) REFERENCES `paciente` (`CURPP`)
 );
 
 CREATE TABLE `solicitar_cita` (
 	`CURPP` varchar(18) NOT NULL,
 	`CURPM` varchar(18) NOT NULL,
 	`fecha_cita` datetime NOT NULL,
-	`consultorio` int NOT NULL,
-	`indicaciones` varchar(500) NOT NULL,
+	`consultorio` int NULL,
+	`indicaciones` varchar(500) NULL,
 	PRIMARY KEY (`CURPP`,`CURPM`),
 	KEY `fk_paciente` (`CURPP`),
 	KEY `fk_medico` (`CURPM`),
