@@ -52,7 +52,7 @@ CREATE TABLE `historial` (
 	`fecha` datetime NOT NULL,
 	`contenido` varchar(5000) NOT NULL,
 	PRIMARY KEY (`CURPP_historial`),
-	CONSTRAINT `FKEMPL` FOREIGN KEY (`CURPP`) REFERENCES `paciente` (`CURPP`)
+	CONSTRAINT `FKEMPL` FOREIGN KEY (`CURPP_historial`) REFERENCES `paciente` (`CURPP`)
 );
 
 CREATE TABLE `solicitar_cita` (
