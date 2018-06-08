@@ -39,7 +39,7 @@
                         <p><i class="fa fas fa-address-card fa-fw w3-margin-right w3-text-theme"></i>Administrador</p>
                     </div>
                 </div>
-                <p:commandLink class="w3-margin-top w3-button w3-center w3-black" value="Cerrar Sesión"/>
+                <p:commandLink action="#{administradorBean.cerrarSession()}" class="w3-margin-top w3-button w3-center w3-black" value="Cerrar Sesión"/>
             </div><!-- End Left Column -->
 
             <!--Middle paga-->
@@ -65,34 +65,39 @@
                             </button>
                             <hr/>
                             <h:form id="ListaMedicos" class="w3-container">
-                                <p:dataTable  value="#{list_Teacher.lstpersona}" 
+                                <p:dataTable  value="#{medicoBean.lstMedicos}" 
                                               var="medico">
-                                    <p:column headerText= "First name">
-                                        <h:inputText value="#{teacher.nombre}" size="15" rendered="#{teacher.editable}" />
-                                        <p:outputLabel value="#{teacher.nombre}" rendered="#{not teacher.editable}"/>
+                                    <p:column headerText= "Nombre" width="15%">
+                                        <h:inputText value="#{medico.nombre}" size="120" rendered="#{medico.editable}" />
+                                        <p:outputLabel  value="#{medico.nombre}" rendered="#{not medico.editable}"/>
                                     </p:column>
-                                    <p:column headerText="Last name">
-                                        <h:inputText value="#{teacher.apellido}" size="15" rendered="#{teacher.editable}" />
-                                        <p:outputLabel value="#{teacher.apellido}" rendered="#{not teacher.editable}"/>
+                                    <p:column headerText="Ap.Paterno" width="15%">
+                                        <h:inputText value="#{medico.appat}" size="15" rendered="#{medico.editable}" />
+                                        <p:outputLabel value="#{medico.appat}" rendered="#{not medico.editable}"/>
                                     </p:column>
-                                    <p:column headerText="Id">
-                                        <h:inputText value="#{teacher.idLog}" size="15" rendered="#{teacher.editable}" />
-                                        <p:outputLabel value="#{teacher.idLog}" rendered="#{not teacher.editable}"/>
+                                    <p:column headerText="Ap.Materno" width="15%" >
+                                        <h:inputText value="#{medico.apmat}" size="15" rendered="#{medico.editable}" />
+                                        <p:outputLabel value="#{medico.apmat}" rendered="#{not medico.editable}"/>
                                     </p:column>
-                                    <p:column headerText="Groups">
-                                        <h:inputText value="#{teacher.profesor.grupo}" size="15" rendered="#{teacher.editable}" />
-                                        <p:outputLabel value="#{teacher.profesor.grupo()}" rendered="#{not teacher.editable}"/>
+                                    <p:column headerText="CURP" width="30%">
+                                        <h:inputText value="#{medico.curpm}" size="15" rendered="#{medico.editable}" />
+                                        <p:outputLabel value="#{medico.curpm}" rendered="#{not medico.editable}"/>
                                     </p:column>
-                                    <p:column headerText="Modify">
+                                    <p:column headerText="Consult." width="10%">
+                                        <p:inputNumber value="#{medico.consultorio}" size="5" rendered="#{medico.editable}"/>
+                                        <p:outputLabel value="#{medico.consultorio}" rendered="#{not medico.editable}"/>
+                                    </p:column>
+                                    <p:column headerText="Modificar" width="15%">
                                         <i class="fa fa-pencil-square-o w3-align-left" style="font-size:18px;color:green">
-                                            <h:commandLink value=" Modify" action="#{list_Teacher.editAction(teacher)}" rendered="#{not teacher.editable}" />
-                                            <h:commandLink value=" Save" action="#{list_Teacher.guardar(teacher)}" rendered="#{teacher.editable}" />
+                                            <h:commandLink value="Modificar" action="#{medicoBean.editAction(medico)}"  rendered="#{not medico.editable}" />
+                                            <h:commandLink value="Guardar" action="#{medicoBean.guardar(medico)}" rendered="#{medico.editable}" />
                                         </i>                                        
                                     </p:column>
-                                    <p:column headerText="Delete">
-                                        <i class="fa fa-eraser button" style="font-size:18px;color:red">
-                                            <h:commandLink value=" Delete" action="#{list_Teacher.eliminarPersona(teacher.idUsuarios)}"/>
+                                    <p:column headerText="Eliminar" width="15%">
+                                        <i class="fa fa-eraser" style="font-size:18px;color:red">
+                                                <h:commandLink action="#{medicoBean.eliminarPersona(medico.curpm)}" value=" Eliminar" /> 
                                         </i>
+                                        
                                     </p:column>
                                 </p:dataTable>
                                 <br/>
@@ -108,29 +113,41 @@
                                 <span onclick="document.getElementById('SignIn').style.display = 'none'" class="w3-button w3-large w3-hover-red w3-display-topright" title="Close Modal">&times;</span>
                             </div>
                             <h:form class="w3-container">
-                                <h2><strong><i class="fa fa-plus-square" style="color:blue">&nbsp;Adding new user</i></strong></h2>
+                                <h2><strong><i class="fa fa-plus-square" style="color:blue">&nbsp;Añadir nuevo médico</i></strong></h2>
                                 <div class="w3-section">
                                     <h:panelGrid columns="4">
-                                        <h:outputLabel value="Name"/>
-                                        <p:inputText placeholder="Enter Name" value="#{list_Teacher.persona.name}" id="name" class="w3-input"/> 
-                                        <h:outputLabel value="&emsp;&emsp;Last name "/>              
-                                        <p:inputText placeholder="Enter Last_Name" value="#{list_Teacher.persona.lastName}" id="last_name" class="w3-input"/>
-                                        <h:outputLabel value="User name "/>
-                                        <p:inputText placeholder=" Enter User_Name" value="#{list_Teacher.persona.id}" id="id"  class="w3-input"/>                
-                                        <h:outputLabel value="&emsp;&emsp;Email "/>
-                                        <p:inputText placeholder="Enter Email" value="#{list_Teacher.persona.email}" id="email" class="w3-input"/>
-                                        <h:outputLabel value="Password "/>
-                                        <p:password placeholder="Enter Password" value="#{list_Teacher.persona.password}" id="psw" class="w3-input"/>
-                                        <h:outputLabel value="&emsp;&emsp;Repeat Password &nbsp;"/>
-                                        <p:password placeholder="Repeat Password" value="#{list_Teacher.persona.RPassword}" id="psw-repeat" class="w3-input"/>
-                                        <h:outputLabel value="Type of User "/>
-                                        <p:selectOneMenu class="w3-input" value="#{list_Teacher.persona.cargo}">
-                                            <f:selectItem itemLabel="Teacher" itemValue="Teacher" />
-                                            <f:selectItem itemLabel="Student" itemValue="Student" />
+                                        <h:outputLabel value="&emsp;Nombre"/>
+                                        <p:inputText placeholder="Ingrese nombre" value="#{medicoBean.nombre}" id="nombre" class="w3-input"/> 
+                                        <h:outputLabel value="&emsp;Apellido Paterno:"/>              
+                                        <p:inputText placeholder="Ingrese Apellido Paterno" value="#{medicoBean.apellidop}" id="app" class="w3-input"/>
+                                        <h:outputLabel value="&emsp;Apellido Materno:"/>              
+                                        <p:inputText placeholder="Ingrese Apellido Materno" value="#{medicoBean.apellidom}" id="apm" class="w3-input"/>
+                                        <h:outputLabel value="&emsp;Edad:"/>
+                                        <p:inputNumber minValue="0" maxValue="120" placeholder="Ingrese edad" value="#{medicoBean.edad}" id="edad" class="w3-input" />
+                                        <h:outputLabel value="&emsp;CURP:"/>
+                                        <p:inputText placeholder="Ingrese CURP" value="#{medicoBean.curp}" id="curp" class="w3-input"/>
+                                        <h:outputLabel value="&emsp;Teléfono:"/>
+                                        <p:inputText placeholder="Ingrese # de teléfono" value="#{medicoBean.telefono}" id="telefono" class="w3-input" />
+                                        <h:outputLabel value="&emsp;&emsp;Email: "/>
+                                        <p:inputText placeholder="Ingrese Email" value="#{medicoBean.correo}" id="email" class="w3-input"/>
+                                        <h:outputLabel value="&emsp;Contraseña:"/>
+                                        <p:password placeholder="Ingrese Contraseña" value="#{medicoBean.contra}" id="psw" class="w3-input"/>
+                                        <h:outputLabel value="Repetir Contraseña "/>
+                                        <p:password placeholder="Ingrese Contraseña" value="#{medicoBean.rcontra}" id="psw-repeat" class="w3-input"/>
+                                        <h:outputLabel value="Especialidad o área:"/>
+                                        <p:selectOneMenu class="w3-input" value="#{medicoBean.especialidad}">
+                                            <f:selectItem itemLabel="Pediatria" itemValue="Pediatria" />
+                                            <f:selectItem itemLabel="Oftalmología" itemValue="Oftalmología" />
+                                            <f:selectItem itemLabel="Psicología" itemValue="Psicología" />
+                                            <f:selectItem itemLabel="Medicina General" itemValue="Medicina General" />
+                                            <f:selectItem itemLabel="Ginecolgía" itemValue="Ginecolgía" />
+                                            <f:selectItem itemLabel="Otorrinolaringología" itemValue="Otorrinolaringología" />
+                                            <f:selectItem itemLabel="Traumatología" itemValue="Traumatología" />
                                         </p:selectOneMenu>  
+                                        <h:outputLabel value="# de Consultorio asignado "/>
+                                        <p:inputNumber minValue="0" maxValue="120" placeholder="Ingrese # de consult." value="#{medicoBean.consultorio}" id="consultorio" class="w3-input" />
                                         <br/>
-                                        <h:commandLink value="Sign In" action="#{list_Teacher.actualizar()}" class="w3-button w3-block w3-green w3-section w3-padding"/>
-
+                                        <h:commandLink value="Añadir" action="#{medicoBean.validate()}" class="w3-button w3-block w3-green w3-section w3-padding"/>
                                     </h:panelGrid>
                                 </div>
                             </h:form>

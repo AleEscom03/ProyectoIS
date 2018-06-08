@@ -48,26 +48,44 @@ public class LoginBean implements Serializable {
             if (tipo.equals("Administrador")) {
                 tipoU = 1;
                 ad = (Administrador) hibernateSession.createQuery("from Administrador where curpa = '" + curp + "' and contrasena = '" + psw + "'").uniqueResult();
-                request.getSession().setAttribute("idcurp", ad.getCurpa());
-                nombre = ad.getNombre() + " " + ad.getAppat() + " " + ad.getApmat();
-                request.getSession().setAttribute("nombre", nombre);
-                System.out.println(nombre+" desde login");
-                request.getSession().setAttribute("correo", ad.getCorreo());
+                try {
+                    request.getSession().setAttribute("idcurp", ad.getCurpa());
+                    nombre = ad.getNombre() + " " + ad.getAppat() + " " + ad.getApmat();
+                    request.getSession().setAttribute("nombre", nombre);
+                    System.out.println(nombre + " desde login");
+                    request.getSession().setAttribute("correo", ad.getCorreo());
+                } catch (Exception e) {
+                    FacesMessage message0 = new FacesMessage(FacesMessage.SEVERITY_INFO, "Revisar", "CURP, contraseña o tipo incorrecto");
+                    PrimeFaces.current().dialog().showMessageDynamic(message0);
+                    return "index";
+                }
             } else {
                 if (tipo.equals("Medico")) {
                     tipoU = 2;
                     me = (Medico) hibernateSession.createQuery("from Medico where curpm = '" + curp + "' and contrasena = '" + psw + "'").uniqueResult();
-                    request.getSession().setAttribute("idcurp", me.getCurpm());
-                    nombre = me.getNombre() + " " + me.getAppat() + " " + me.getApmat();
-                    request.getSession().setAttribute("nombre", nombre);
-                    request.getSession().setAttribute("correo", me.getCorreo());
+                    try {
+                        request.getSession().setAttribute("idcurp", me.getCurpm());
+                        nombre = me.getNombre() + " " + me.getAppat() + " " + me.getApmat();
+                        request.getSession().setAttribute("nombre", nombre);
+                        request.getSession().setAttribute("correo", me.getCorreo());
+                    } catch (Exception e) {
+                        FacesMessage message1 = new FacesMessage(FacesMessage.SEVERITY_INFO, "Revisar", "CURP, contraseña o tipo incorrecto");
+                        PrimeFaces.current().dialog().showMessageDynamic(message1);
+                        return "index";
+                    }
                 } else {
                     tipoU = 3;
                     pa = (Paciente) hibernateSession.createQuery("from Paciente where curpp = '" + curp + "' and contrasena = '" + psw + "'").uniqueResult();
-                    request.getSession().setAttribute("idcurp", pa.getCurpp());
-                    nombre = pa.getNombre() + " " + pa.getAppat() + " " + pa.getApmat();
-                    request.getSession().setAttribute("nombre", nombre);
-                    request.getSession().setAttribute("correo", pa.getCorreo());
+                    try {
+                        request.getSession().setAttribute("idcurp", pa.getCurpp());
+                        nombre = pa.getNombre() + " " + pa.getAppat() + " " + pa.getApmat();
+                        request.getSession().setAttribute("nombre", nombre);
+                        request.getSession().setAttribute("correo", pa.getCorreo());
+                    } catch (Exception e) {
+                        FacesMessage message2 = new FacesMessage(FacesMessage.SEVERITY_INFO, "Revisar", "CURP, contraseña o tipo incorrecto");
+                        PrimeFaces.current().dialog().showMessageDynamic(message2);
+                        return "index";
+                    }
                 }
             }
             if (tipoU == 0) {

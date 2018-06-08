@@ -81,4 +81,5 @@ CREATE TABLE `generar_historial` (
 
 
 insert into administrador values('BUEA970807HDFNSL02','Alejandro','Buendia','Escamilla',20,'alebuenescom03@gmail.com','5524936024','ale970807','31-05-18');
+insert into administrador values('DANE121121HDFNSL03','Aldo','Mendoza','Morales',25,'aldodani12@gmail.com','552654875','aldo123',NOW());
 

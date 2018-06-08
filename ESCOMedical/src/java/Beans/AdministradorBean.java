@@ -27,6 +27,14 @@ public class AdministradorBean implements Serializable {
         }
     }
 
+    public String cerrarSession(){
+        request.getSession().removeAttribute("idcurp");
+        request.getSession().removeAttribute("nombre");
+        request.getSession().removeAttribute("correo");
+        return "index";
+    }
+    
+    
     public String getIdcurp() {
         return idcurp;
     }

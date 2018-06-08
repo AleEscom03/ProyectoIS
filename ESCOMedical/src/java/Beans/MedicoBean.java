@@ -1,17 +1,24 @@
 package Beans;
 
+import entity.Administrador;
 import entity.HibernateUtil;
 import entity.Medico;
 import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.primefaces.PrimeFaces;
 
 @ManagedBean
-@RequestScoped
+@ViewScoped
 public class MedicoBean implements Serializable {
 
     private String nombre;
@@ -21,17 +28,27 @@ public class MedicoBean implements Serializable {
     private String correo;
     private String contra;
     private String rcontra;
-    private int consulatorio;
+    private int consultorio;
     private String curp;
     private String telefono;
     private String especialidad;
+    private Date fecha = new Date();
+    private final FacesContext fc;
+    private final HttpServletRequest request;
+    private List lstMedicos;
+    private final Session hibernateSession = HibernateUtil.getSessionFactory().openSession();
 
     public MedicoBean() {
+        fc = FacesContext.getCurrentInstance();
+        request = (HttpServletRequest) fc.getExternalContext().getRequest();
+        Query consultaM = hibernateSession.createQuery("from Medico");
+        lstMedicos = consultaM.list();
     }
 
     public String validate() {
+        Transaction t = hibernateSession.beginTransaction();
         //Revisamos que todos los campos esten llenos
-        if (nombre.equals("") || apellidop.equals("") || apellidom.equals("") || correo.equals("") || contra.equals("") || rcontra.equals("") || edad == 0 || telefono.equals("") || especialidad.equals("")|| consulatorio == 0) {
+        if (nombre.equals("") || apellidop.equals("") || apellidom.equals("") || correo.equals("") || contra.equals("") || rcontra.equals("") || edad == 0 || telefono.equals("") || especialidad.equals("") || consultorio == 0) {
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Revisar", "Debe llenar todos los campos.");
             PrimeFaces.current().dialog().showMessageDynamic(message);
             return null;
@@ -40,13 +57,47 @@ public class MedicoBean implements Serializable {
             PrimeFaces.current().dialog().showMessageDynamic(message);
             return null;
         }
-        Session hibernateSession;
-        hibernateSession = HibernateUtil.getSessionFactory().openSession();
-        Transaction t = hibernateSession.beginTransaction();
-       Medico me = new Medico
+        String idAd = (String) request.getSession().getAttribute("idcurp");
+        Administrador ad = (Administrador) hibernateSession.createQuery("from Administrador where CURPA = '" + idAd + "' ").uniqueResult();
+        Medico me = new Medico(curp, ad, nombre, apellidop, apellidom, edad, correo, telefono, contra, especialidad, consultorio, fecha);
         hibernateSession.save(me);
         t.commit();
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro exitoso", "Inicie Sesión para comenzar");
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro exitoso", "Médico Agregado");
+        PrimeFaces.current().dialog().showMessageDynamic(message);
+        lstMedicos.clear();
+        lstMedicos = hibernateSession.createQuery("from Medico").list();
+        return null;
+    }
+
+    public String eliminarPersona(String curpD) {
+        Transaction t = hibernateSession.beginTransaction();
+        Medico me = (Medico) hibernateSession.load(Medico.class, curpD);
+        hibernateSession.delete(me);
+        t.commit();
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Teacher deleted", "Review changed");
+        PrimeFaces.current().dialog().showMessageDynamic(message);
+        lstMedicos.clear();
+        Query consulta = hibernateSession.createQuery("from Medico");
+        lstMedicos = consulta.list();
+        return null;
+    }
+
+    public String guardar(Medico me) {
+        Transaction t = hibernateSession.beginTransaction();
+        me.setEditable(false);
+        String hql = "update Medico set nombre = :nombre, appat = :appat, apmat = :apmat, consultorio = :consultorio, curpm = :curpm where curpm = '" + me.getCurpm() + "'";
+        System.out.println(hql);
+        Query guarda = hibernateSession.createQuery(hql);
+        guarda.setParameter("nombre", me.getNombre());
+        guarda.setParameter("appat", me.getAppat());
+        guarda.setParameter("apmat", me.getApmat());
+        guarda.setParameter("consultorio", me.getConsultorio());
+        guarda.setParameter("curpm", me.getCurpm());
+        guarda.executeUpdate();
+        t.commit();
+        lstMedicos.clear();
+        lstMedicos = hibernateSession.createQuery("from Medico").list();
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Change saved", "Verify that all is okey");
         PrimeFaces.current().dialog().showMessageDynamic(message);
         return null;
     }
@@ -107,12 +158,12 @@ public class MedicoBean implements Serializable {
         this.rcontra = rcontra;
     }
 
-    public int getConsulatorio() {
-        return consulatorio;
+    public int getConsultorio() {
+        return consultorio;
     }
 
-    public void setConsulatorio(int consulatorio) {
-        this.consulatorio = consulatorio;
+    public void setConsultorio(int consultorio) {
+        this.consultorio = consultorio;
     }
 
     public String getCurp() {
@@ -138,6 +189,26 @@ public class MedicoBean implements Serializable {
     public void setEspecialidad(String especialidad) {
         this.especialidad = especialidad;
     }
-    
-    
+
+    public Date getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
+    }
+
+    public List getLstMedicos() {
+        return lstMedicos;
+    }
+
+    public void setLstMedicos(List lstMedicos) {
+        this.lstMedicos = lstMedicos;
+    }
+
+    public String editAction(Medico m) {
+        m.setEditable(true);
+        return null;
+    }
+
 }
